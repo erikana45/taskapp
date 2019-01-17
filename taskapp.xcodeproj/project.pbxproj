@@ -12,6 +12,7 @@
 		28E86B1B21F0C87800D66A10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28E86B1921F0C87800D66A10 /* Main.storyboard */; };
 		28E86B1D21F0C87D00D66A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28E86B1C21F0C87D00D66A10 /* Assets.xcassets */; };
 		28E86B2021F0C87D00D66A10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28E86B1E21F0C87D00D66A10 /* LaunchScreen.storyboard */; };
+		28E86B2821F0CF7B00D66A10 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E86B2721F0CF7B00D66A10 /* InputViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		28E86B1C21F0C87D00D66A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28E86B1F21F0C87D00D66A10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28E86B2121F0C87D00D66A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28E86B2721F0CF7B00D66A10 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				28E86B1C21F0C87D00D66A10 /* Assets.xcassets */,
 				28E86B1E21F0C87D00D66A10 /* LaunchScreen.storyboard */,
 				28E86B2121F0C87D00D66A10 /* Info.plist */,
+				28E86B2721F0CF7B00D66A10 /* InputViewController.swift */,
 			);
 			path = taskapp;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E86B2821F0CF7B00D66A10 /* InputViewController.swift in Sources */,
 				28E86B1821F0C87800D66A10 /* ViewController.swift in Sources */,
 				28E86B1621F0C87800D66A10 /* AppDelegate.swift in Sources */,
 			);
@@ -291,7 +295,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.eri.katsuki.taskapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,7 +312,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.eri.katsuki.taskapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
