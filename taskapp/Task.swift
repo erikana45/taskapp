@@ -27,4 +27,8 @@ class Task: Object {
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    //categoryというすプロパティを追加
+    var category : String!
+    
 }
