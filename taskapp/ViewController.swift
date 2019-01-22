@@ -13,13 +13,14 @@ import UserNotifications    // 追加
 
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate{
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
-
+    var searchResult = String?.self //←課題用に追加　検索結果配列
     
     
     // DB内のタスクが格納されるリスト。
@@ -34,7 +35,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        //デリゲート先を自分に設定する。
+        searchBar.delegate = self
+        //何も入力されていなくてもReturnキーを押せるようにする。
+        searchBar.enablesReturnKeyAutomatically = false
+        
     }
+    
     
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
@@ -58,7 +66,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let dateString:String = formatter.string(from: task.date)
         cell.detailTextLabel?.text = dateString
         // --- ここまで追加 ---
-        
         return cell
     }
     

@@ -18,8 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="b3Y-Zv-EVM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3bq-vH-wP6"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="22V-sv-fpf">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="qix-x4-b1A" detailTextLabel="Ucu-YZ-vZU" style="IBUITableViewCellStyleSubtitle" id="I1V-cy-koW">
@@ -52,8 +59,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="22V-sv-fpf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9XH-v3-tj9"/>
-                            <constraint firstItem="22V-sv-fpf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="O3b-Gq-DaD"/>
+                            <constraint firstItem="b3Y-Zv-EVM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ROT-lk-KV0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="22V-sv-fpf" secondAttribute="trailing" id="Zp9-6c-kOc"/>
+                            <constraint firstItem="b3Y-Zv-EVM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="biB-yj-Tu3"/>
+                            <constraint firstItem="b3Y-Zv-EVM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ct6-i2-Ks3"/>
+                            <constraint firstItem="22V-sv-fpf" firstAttribute="top" secondItem="b3Y-Zv-EVM" secondAttribute="bottom" id="hZ6-YM-rJb"/>
                             <constraint firstItem="22V-sv-fpf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="mNf-rb-j8k"/>
                             <constraint firstItem="22V-sv-fpf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="omZ-xd-rUp"/>
                         </constraints>
@@ -67,7 +77,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchDisplayController" destination="3rK-RT-zla" id="7rW-Eg-G5S"/>
+                        <outlet property="searchBar" destination="b3Y-Zv-EVM" id="CZK-nE-8rI"/>
+                        <outlet property="searchDisplayController" destination="8DX-bf-TZ8" id="EBF-YJ-Mlz"/>
                         <outlet property="tableView" destination="22V-sv-fpf" id="bSm-Hd-kbO"/>
                         <segue destination="jV5-0j-ub3" kind="show" identifier="cellSegue" id="XDk-tc-dgt"/>
                     </connections>
@@ -79,6 +90,14 @@
                         <outlet property="searchContentsController" destination="BYZ-38-t0r" id="QwA-IX-9BK"/>
                         <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="3cZ-Tc-PPT"/>
                         <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="2gb-Lb-9sL"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="8DX-bf-TZ8">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="Qsg-7C-Vfl"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="DRn-bv-Kst"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="7M3-XW-sSs"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="TLQ-nt-TWN"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -173,7 +192,7 @@
                         <viewLayoutGuide key="safeArea" id="HEz-Do-scJ"/>
                     </view>
                     <connections>
-                        <outlet property="categoryTextField" destination="ioS-Z8-6I3" id="mqF-us-nWj"/>
+                        <outlet property="categoryTextField" destination="ioS-Z8-6I3" id="VFL-m0-Q9n"/>
                         <outlet property="contentsTextView" destination="jpq-EY-yEf" id="RJT-Kh-V4H"/>
                         <outlet property="datePicker" destination="Ebb-sC-Zti" id="E8V-6Z-Y1s"/>
                         <outlet property="titleTextField" destination="Cuh-hB-2Gt" id="8LI-Wa-oPi"/>

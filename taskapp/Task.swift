@@ -21,7 +21,7 @@ class Task: Object {
     /// 日時
     @objc dynamic var date = Date()
     
-    //カテゴリー ←追加
+    //カテゴリー ←課題用に追加
     @objc dynamic var category : String = " "
     
     
