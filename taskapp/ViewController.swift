@@ -12,11 +12,16 @@ import RealmSwift  //追加
 import UserNotifications    // 追加
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate{
     
-    // Realmインスタンスを取得する
-    let realm = try! Realm()  // ←追加
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var serchBar: UISearchBar!//←追加　サーチバーのアウトレット
+    
+    
+    let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
+    var searchBar = UISearchBar() //←追加　サーチバーのインスタンス
+    
     
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
@@ -24,38 +29,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)  // ←追加
 
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.searchBarStyle = UISearchBar.Style.default
+        searchBar.showsSearchResultsButton = false
+        searchBar.placeholder = "検索"
+        searchBar.setValue("キャンセル", forKey: "_cancelButtonText")
+        searchBar.tintColor = UIColor.red
+        
+        tableView.tableHeaderView = searchBar
+        
     }
 
+    
+    
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskArray.count  // ←修正する
     }
     
+    
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        // Cellに値を設定する.  --- ここから ---
-        let task = taskArray[indexPath.row]
-        cell.textLabel?.text = task.title
+        //←追加　検索されるときの場合分け
+        if searchBar.text != "" {
+            _ = try! Realm().objects(Task.self).filter("category == searchBar.text")
+            let task = taskArray[indexPath.row]
+            cell.textLabel?.text = task.title
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let dateString:String = formatter.string(from: task.date)
+            cell.detailTextLabel?.text = dateString
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        let dateString:String = formatter.string(from: task.date)
-        cell.detailTextLabel?.text = dateString
-        // --- ここまで追加 ---
-        
+        } else {
+            // Cellに値を設定する.  --- ここから ---
+            let task = taskArray[indexPath.row]
+            cell.textLabel?.text = task.title
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            
+            let dateString:String = formatter.string(from: task.date)
+            cell.detailTextLabel?.text = dateString
+            // --- ここまで追加 ---
+        }
+            
         return cell
 
     }
+    
     
     // MARK: UITableViewDelegateプロトコルのメソッド
     // 各セルを選択した時に実行されるメソッド
@@ -131,5 +167,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     
+
 
 

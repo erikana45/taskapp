@@ -42,15 +42,18 @@ class InputViewController: UIViewController  {
         view.endEditing(true)
     }
 
+    
     // 追加する
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
             self.task.title = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
-            self.realm.add(self.task, update: true)
             self.task.category = self.categoryTextField.text!
+            self.realm.add(self.task, update: true)
+            
         }
+    
         
         setNotification(task: task)   // 追加
         super.viewWillDisappear(animated)
@@ -94,7 +97,7 @@ class InputViewController: UIViewController  {
                 print("---------------/")
             }
         }
-    } // --- ここまで追加 ---
+     } // --- ここまで追加 ---
     
     
     
@@ -107,5 +110,6 @@ class InputViewController: UIViewController  {
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }

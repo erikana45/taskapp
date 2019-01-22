@@ -21,14 +21,15 @@ class Task: Object {
     /// 日時
     @objc dynamic var date = Date()
     
+    //カテゴリー ←追加
+    @objc dynamic var category : String = " "
+    
+    
     /**
      id をプライマリーキーとして設定
      */
     override static func primaryKey() -> String? {
         return "id"
     }
-    
-    //categoryというすプロパティを追加
-    var category : String!
     
 }
