@@ -13,14 +13,13 @@ import UserNotifications    // 追加
 
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var serchBar: UISearchBar!//←追加　サーチバーのアウトレット
     
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
-    var searchBar = UISearchBar() //←追加　サーチバーのインスタンス
+
     
     
     // DB内のタスクが格納されるリスト。
@@ -29,27 +28,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)  // ←追加
 
     
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
-        
-        searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.searchBarStyle = UISearchBar.Style.default
-        searchBar.showsSearchResultsButton = false
-        searchBar.placeholder = "検索"
-        searchBar.setValue("キャンセル", forKey: "_cancelButtonText")
-        searchBar.tintColor = UIColor.red
-        
-        tableView.tableHeaderView = searchBar
-        
     }
-
-    
     
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
@@ -63,33 +48,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        //←追加　検索されるときの場合分け
-        if searchBar.text != "" {
-            _ = try! Realm().objects(Task.self).filter("category == searchBar.text")
-            let task = taskArray[indexPath.row]
-            cell.textLabel?.text = task.title
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            let dateString:String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
+        // Cellに値を設定する.  --- ここから ---
+        let task = taskArray[indexPath.row]
+        cell.textLabel?.text = task.title
         
-        } else {
-            // Cellに値を設定する.  --- ここから ---
-            let task = taskArray[indexPath.row]
-            cell.textLabel?.text = task.title
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            let dateString:String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
-            // --- ここまで追加 ---
-        }
-            
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        let dateString:String = formatter.string(from: task.date)
+        cell.detailTextLabel?.text = dateString
+        // --- ここまで追加 ---
+        
         return cell
-
     }
     
     

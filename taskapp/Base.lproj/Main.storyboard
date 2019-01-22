@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="22V-sv-fpf">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="qix-x4-b1A" detailTextLabel="Ucu-YZ-vZU" style="IBUITableViewCellStyleSubtitle" id="I1V-cy-koW">
@@ -48,21 +48,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="GhQ-Ve-Hm4">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="22V-sv-fpf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9XH-v3-tj9"/>
-                            <constraint firstItem="22V-sv-fpf" firstAttribute="top" secondItem="GhQ-Ve-Hm4" secondAttribute="bottom" id="ReK-Uh-8Wm"/>
-                            <constraint firstItem="GhQ-Ve-Hm4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="YzQ-z7-2oV"/>
+                            <constraint firstItem="22V-sv-fpf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="O3b-Gq-DaD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="22V-sv-fpf" secondAttribute="trailing" id="Zp9-6c-kOc"/>
-                            <constraint firstItem="GhQ-Ve-Hm4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bI4-a7-Uds"/>
+                            <constraint firstItem="22V-sv-fpf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="mNf-rb-j8k"/>
                             <constraint firstItem="22V-sv-fpf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="omZ-xd-rUp"/>
-                            <constraint firstItem="22V-sv-fpf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="pei-TZ-jvd"/>
-                            <constraint firstItem="GhQ-Ve-Hm4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="w6g-9C-K0h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -74,12 +67,20 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="serchBar" destination="GhQ-Ve-Hm4" id="hRY-am-2hJ"/>
+                        <outlet property="searchDisplayController" destination="3rK-RT-zla" id="7rW-Eg-G5S"/>
                         <outlet property="tableView" destination="22V-sv-fpf" id="bSm-Hd-kbO"/>
                         <segue destination="jV5-0j-ub3" kind="show" identifier="cellSegue" id="XDk-tc-dgt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="3rK-RT-zla">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="nfF-0Y-PdP"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="QwA-IX-9BK"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="3cZ-Tc-PPT"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="2gb-Lb-9sL"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1079.2" y="133.5832083958021"/>
         </scene>
