@@ -47,7 +47,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //サーチバー更新時(UISearchBarDelegateを関連づけておく必要があります）
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //←課題用に追加　カテゴリで絞り込みをかけたときの配列
-        _ = try! Realm().objects(Task.self).filter("category == %@")
+        var searchResult = try! Realm().objects(Task.self).filter("task.category == searchText")
     }
     
     
@@ -65,7 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
         if (searchBar != nil):String != "" {
             
-            let task = searchTaskArray[]
+            let task = searchResult
             cell.textLabel?.text = task.title
             
             let formatter = DateFormatter()
