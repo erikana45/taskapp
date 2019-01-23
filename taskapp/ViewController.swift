@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
+     var taskItems: Results<Task>?
     
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
@@ -33,6 +34,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
+        taskItems = realm.objects(Task.self)
+        
     }
     
     
