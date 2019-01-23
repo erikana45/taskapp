@@ -20,8 +20,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
-    var searchResult = String?.self //←課題用に追加　検索結果配列
-    
     
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
@@ -35,19 +33,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //デリゲート先を自分に設定する。
-        searchBar.delegate = self
-        //何も入力されていなくてもReturnキーを押せるようにする。
-        searchBar.enablesReturnKeyAutomatically = false
-        
     }
     
     
-    //サーチバー更新時(UISearchBarDelegateを関連づけておく必要があります）
+    
+    //課題用に追加　サーチバー更新ごとに検索される
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            taskArray = try! Realm().objects(Task.self)
+        } else {
         //←課題用に追加　カテゴリで絞り込みをかけたときの配列
-        var searchResult = try! Realm().objects(Task.self).filter("task.category == searchText")
+            taskArray = try! Realm().objects(Task.self).filter("category == %@", searchText)
+       }
+        tableView.reloadData()
     }
     
     
@@ -57,38 +55,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return taskArray.count  // ←修正する
     }
     
+ 
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-    
-        if (searchBar != nil):String != "" {
-            
-            let task = searchResult
-            cell.textLabel?.text = task.title
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            let dateString:String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
-            
-            return cell
-            
-        }else{
-            // Cellに値を設定する.  --- ここから ---
-            let task = taskArray[indexPath.row]
-            cell.textLabel?.text = task.title
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            
-            let dateString:String = formatter.string(from: task.date)
-            cell.detailTextLabel?.text = dateString
-            // --- ここまで追加 ---
-            return cell
-        }
+        
+        // Cellに値を設定する.  --- ここから ---
+        let task = taskArray[indexPath.row]
+        cell.textLabel?.text = task.title
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        let dateString:String = formatter.string(from: task.date)
+        cell.detailTextLabel?.text = dateString
+        // --- ここまで追加 ---
+        
+        return cell
     }
     
     // MARK: UITableViewDelegateプロトコルのメソッド
