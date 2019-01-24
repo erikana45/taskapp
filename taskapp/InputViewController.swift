@@ -11,14 +11,11 @@ import RealmSwift
 import UserNotifications    // 追加
 
 
-
 class InputViewController: UIViewController  {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var categoryTextField: UITextField! //課題用に追加
-    
-    
+    @IBOutlet weak var categoryTextField: UITextField!
     
     
     let realm = try! Realm()    // 追加する
