@@ -20,7 +20,7 @@ class InputViewController: UIViewController  {
     
     let realm = try! Realm()    // 追加する
     var task: Task!   // 追加する
-    
+    var rightBarButton: UIBarButtonItem!//課題用に追加
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,17 @@ class InputViewController: UIViewController  {
         datePicker.date = task.date
         categoryTextField.text = task.category //課題用に追加
         
+        self.navigationItem.rightBarButtonItem = rightBarButton //課題用に追加
+        rightBarButton = UIBarButtonItem(title: "カテゴリ", style: .plain, target: self, action: #selector(InputViewController.tappedRightBarButton))
+
     }
     
+
+    // ボタンをタップしたときのアクション
+    @objc func tappedRightBarButton() {
+        let nextPage = Category()
+        self.navigationController?.pushViewController(nextPage, animated: true)
+    }
     
     
     @objc func dismissKeyboard(){
