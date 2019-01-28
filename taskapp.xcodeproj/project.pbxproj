@@ -15,6 +15,7 @@
 		28E86B2821F0CF7B00D66A10 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E86B2721F0CF7B00D66A10 /* InputViewController.swift */; };
 		28E86B2A21F17FF900D66A10 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E86B2921F17FF900D66A10 /* Task.swift */; };
 		28E86B4421FB5F7A00D66A10 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E86B4321FB5F7A00D66A10 /* CategoryViewController.swift */; };
+		28E86B4621FEA58800D66A10 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E86B4521FEA58800D66A10 /* Category.swift */; };
 		2CFE5074ABFABD2ECD97280C /* Pods_taskapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B6CEDAFE5EADBE756E8D1ED /* Pods_taskapp.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		28E86B2721F0CF7B00D66A10 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		28E86B2921F17FF900D66A10 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		28E86B4321FB5F7A00D66A10 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		28E86B4521FEA58800D66A10 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3667F2E977CAE84EE841D568 /* Pods-taskapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-taskapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-taskapp/Pods-taskapp.release.xcconfig"; sourceTree = "<group>"; };
 		E388DCE584E844EA32AFDB25 /* Pods-taskapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-taskapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-taskapp/Pods-taskapp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -76,6 +78,7 @@
 				28E86B2721F0CF7B00D66A10 /* InputViewController.swift */,
 				28E86B2921F17FF900D66A10 /* Task.swift */,
 				28E86B4321FB5F7A00D66A10 /* CategoryViewController.swift */,
+				28E86B4521FEA58800D66A10 /* Category.swift */,
 			);
 			path = taskapp;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				28E86B2821F0CF7B00D66A10 /* InputViewController.swift in Sources */,
 				28E86B1821F0C87800D66A10 /* ViewController.swift in Sources */,
 				28E86B1621F0C87800D66A10 /* AppDelegate.swift in Sources */,
+				28E86B4621FEA58800D66A10 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

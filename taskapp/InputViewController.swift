@@ -11,16 +11,35 @@ import RealmSwift
 import UserNotifications    // 追加
 
 
-class InputViewController: UIViewController  {
+class InputViewController: UIViewController,UIPickerViewDataSource  {
+    
+    
+    // ピッカーインスタンスを作成
+    let uiPickerView = UIPickerView()
+     // UIPickerViewの列の数
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    // UIPickerViewの行数、リストの数
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+         return categoryArray.count
+    }
+    
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var categoryTextField: UITextField!
+    @IBOutlet weak var categoryPicker: UIPickerView!
     
     
-    let realm = try! Realm()    // 追加する
-    var task: Task!   // 追加する
-    var rightBarButton: UIBarButtonItem!//課題用に追加
+    
+    let realm = try! Realm()
+    var task: Task!
+    var rightBarButton: UIBarButtonItem! //カテゴリ編集画面への遷移用
+    var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +51,21 @@ class InputViewController: UIViewController  {
         titleTextField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date
-        categoryTextField.text = task.category //課題用に追加
         
-        self.navigationItem.rightBarButtonItem = rightBarButton //課題用に追加
-        rightBarButton = UIBarButtonItem(title: "カテゴリ", style: .plain, target: self, action: #selector(InputViewController.tappedRightBarButton))
+        //PickerViewの初期値
+        uiPickerView.selectRow(2, inComponent: 0, animated: true)
+        
+        //カテゴリ編集画面への遷移
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        rightBarButton = UIBarButtonItem(title: "カテゴリ編集", style: .plain, target: self, action: #selector(InputViewController.tappedRightBarButton))
 
     }
+    
     
 
     // ボタンをタップしたときのアクション
     @objc func tappedRightBarButton() {
-        let nextPage = Category()
+        let nextPage = CategoryViewController()
         self.navigationController?.pushViewController(nextPage, animated: true)
     }
     
@@ -52,6 +75,7 @@ class InputViewController: UIViewController  {
         view.endEditing(true)
     }
 
+  
     
     // 追加する
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,11 +83,10 @@ class InputViewController: UIViewController  {
             self.task.title = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
-            self.task.category = self.categoryTextField.text! //課題用に追加
             self.realm.add(self.task, update: true)
         }
     
-        
+    
         setNotification(task: task)   // 追加
         super.viewWillDisappear(animated)
     }

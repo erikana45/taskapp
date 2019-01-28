@@ -12,9 +12,15 @@ import RealmSwift  //追加
 import UserNotifications    // 追加
 
 
-class Category: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class CategoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    
     
     @IBOutlet var categorytableView: UITableView!
+    
+    
+    //カテゴリの配列を定義
+    let myItems:NSMutableArray=["買い物","メール・電話","仕事","勉強"]
+    
     
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -27,21 +33,31 @@ class Category: UIViewController, UITableViewDelegate, UITableViewDataSource{
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return myItems.count
     }
     
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        //Cellに値を設定する
+        let category = myItems[indexPath.row]
+        cell.textLabel?.text = (category as AnyObject).text
         
         return cell
     }
     
-    // MARK: UITableViewDelegateプロトコルのメソッド
-    // 各セルを選択した時に実行されるメソッド
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    @IBAction func tapAdd(_ sender: Any) {
+        // myItemsに追加.
+        myItems.add("add Cell")
+        
+        // TableViewを再読み込み.
+        categorytableView.reloadData()
     }
+    
+    
+    // MARK: UITableViewDelegateプロトコルのメソッド
     
     // セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
@@ -50,7 +66,17 @@ class Category: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // 削除のとき.
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            print("削除")
+            
+            // 指定されたセルのオブジェクトをmyItemsから削除する.
+            myItems.removeObject(at: indexPath.row)
+            
+            // TableViewを再読み込み.
+            categorytableView.reloadData()
     }
 }
     
 
+}

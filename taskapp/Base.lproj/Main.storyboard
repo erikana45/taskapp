@@ -154,8 +154,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppk-M5-Buh">
-                                <rect key="frame" x="0.0" y="176" width="375" height="100"/>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ppk-M5-Buh">
+                                <rect key="frame" x="0.0" y="179" width="375" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="ikN-sz-9yV"/>
                                 </constraints>
@@ -194,6 +194,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryPicker" destination="ppk-M5-Buh" id="knF-bC-zmm"/>
                         <outlet property="contentsTextView" destination="jpq-EY-yEf" id="RJT-Kh-V4H"/>
                         <outlet property="datePicker" destination="Ebb-sC-Zti" id="E8V-6Z-Y1s"/>
                         <outlet property="titleTextField" destination="Cuh-hB-2Gt" id="8LI-Wa-oPi"/>
@@ -226,7 +227,13 @@
                             <outlet property="delegate" destination="FJb-b2-9Dn" id="iYQ-6V-U8r"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="jJ4-K6-1bc"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="jJ4-K6-1bc">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="uUS-Co-6aE">
+                            <connections>
+                                <action selector="tapAdd:" destination="FJb-b2-9Dn" id="B5L-qI-c67"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="categorytableView" destination="FHv-2I-hD7" id="6uf-uZ-Oi9"/>
                     </connections>
