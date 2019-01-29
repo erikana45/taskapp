@@ -11,35 +11,35 @@ import RealmSwift
 import UserNotifications    // 追加
 
 
-class InputViewController: UIViewController,UIPickerViewDataSource  {
-    
-    
-    // ピッカーインスタンスを作成
-    let uiPickerView = UIPickerView()
-     // UIPickerViewの列の数
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    // UIPickerViewの行数、リストの数
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-         return categoryArray.count
-    }
-    
+class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate  {
+
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
     
+
     
     
     let realm = try! Realm()
     var task: Task!
+
     var rightBarButton: UIBarButtonItem! //カテゴリ編集画面への遷移用
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
     
-
     
+    // UIPickerViewの列の数
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    // UIPickerViewの行数、リストの数
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        print("カテゴリ= \(categoryArray)")
+        return categoryArray.count
+    }
+    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +52,11 @@ class InputViewController: UIViewController,UIPickerViewDataSource  {
         contentsTextView.text = task.contents
         datePicker.date = task.date
         
+        //categoryPickerのデリゲート
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
         //PickerViewの初期値
-        uiPickerView.selectRow(2, inComponent: 0, animated: true)
+        categoryPicker.selectRow(2, inComponent: 0, animated: true)
         
         //カテゴリ編集画面への遷移
         self.navigationItem.rightBarButtonItem = rightBarButton
