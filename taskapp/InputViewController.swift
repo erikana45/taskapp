@@ -18,14 +18,14 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
     
 
     
     
     let realm = try! Realm()
     var task: Task!
-
-    var rightBarButton: UIBarButtonItem! //カテゴリ編集画面への遷移用
+    var category: Category!
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
     
     
@@ -35,7 +35,6 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     }
     // UIPickerViewの行数、リストの数
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        print("カテゴリ= \(categoryArray)")
         return categoryArray.count
     }
     
@@ -58,19 +57,8 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         //PickerViewの初期値
         categoryPicker.selectRow(2, inComponent: 0, animated: true)
         
-        //カテゴリ編集画面への遷移
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        rightBarButton = UIBarButtonItem(title: "カテゴリ編集", style: .plain, target: self, action: #selector(InputViewController.tappedRightBarButton))
-
     }
     
-    
-
-    // ボタンをタップしたときのアクション
-    @objc func tappedRightBarButton() {
-        let nextPage = CategoryViewController()
-        self.navigationController?.pushViewController(nextPage, animated: true)
-    }
     
     
     @objc func dismissKeyboard(){

@@ -14,6 +14,39 @@ import UserNotifications    // 追加
 class CategoryViewController: UIViewController{
 
     
+    @IBOutlet weak var categoryTextField: UITextField!
+    var category:Category!
+    let realm = try! Realm()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+        
+        //インスタンス
+        categoryTextField.text = category.categorydata
+      
+    }
+    
+    
+    @objc func dismissKeyboard(){
+        // キーボードを閉じる
+        view.endEditing(true)
+    }
+    
+    //タスク画面に戻るときに、レルムにデータを保存
+    override func viewWillDisappear(_ animated: Bool) {
+        try! realm.write {
+            self.category.categorydata = self.categoryTextField.text!
+            self.realm.add(self.category, update: true)
+        }
+        
+        super.viewWillDisappear(animated)
+    }
+    
     
     
     

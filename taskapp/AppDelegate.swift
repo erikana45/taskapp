@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             // Enable or disable features based on authorization
         } // --- ここまで追加 ---
         center.delegate = self     // 追加
+       
         return true
     }
     

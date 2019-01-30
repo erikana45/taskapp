@@ -197,6 +197,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="barButtonItem" destination="PBs-4V-H72" id="WCg-9B-oKX"/>
                         <outlet property="categoryPicker" destination="ppk-M5-Buh" id="knF-bC-zmm"/>
                         <outlet property="contentsTextView" destination="jpq-EY-yEf" id="RJT-Kh-V4H"/>
                         <outlet property="datePicker" destination="Ebb-sC-Zti" id="E8V-6Z-Y1s"/>
@@ -214,13 +215,38 @@
                     <view key="view" contentMode="scaleToFill" id="luI-MA-AaE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新規カテゴリ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcs-Mv-UrB">
+                                <rect key="frame" x="10" y="79" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZy-FQ-bMw">
+                                <rect key="frame" x="10" y="110" width="355" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Uu-oF-fi5" firstAttribute="trailing" secondItem="mZy-FQ-bMw" secondAttribute="trailing" constant="10" id="MIY-Ew-4ii"/>
+                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="top" secondItem="4Uu-oF-fi5" secondAttribute="top" constant="15" id="WwG-Ac-nnV"/>
+                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="top" secondItem="Rcs-Mv-UrB" secondAttribute="bottom" constant="10" id="h8V-gb-tk2"/>
+                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="kLN-rJ-Zve"/>
+                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="trailing" secondItem="4Uu-oF-fi5" secondAttribute="trailing" constant="10" id="khf-AD-har"/>
+                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="o88-8g-7HM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4Uu-oF-fi5"/>
                     </view>
+                    <connections>
+                        <outlet property="categoryTextField" destination="mZy-FQ-bMw" id="IYj-zO-Btx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sP-Wu-edW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="43"/>
+            <point key="canvasLocation" x="2581.5999999999999" y="42.728635682158924"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ln7-34-Sn8">
