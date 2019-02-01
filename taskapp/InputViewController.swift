@@ -85,20 +85,20 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
             self.task.date = self.datePicker.date
             if categoryArray.count != 0 {
                 let row = categoryPicker.selectedRow(inComponent: 0)
-                self.task.categoryid = categoryArray[row].id
+                self.task.category = categoryArray[row].categorydata
             }
             self.realm.add(self.task, update: true)
         }
-    
-        setNotification(task: task)   // 追加
+        setNotification(task: task)
         super.viewWillDisappear(animated)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         categoryPicker.selectRow(task.categoryid, inComponent: 0, animated: false)
+        // ピッカーリロード
+        categoryPicker.reloadAllComponents()
     }
     
     
@@ -109,10 +109,11 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         if categoryArray.count != 0 {
             category.id = categoryArray.count + 1
         }
-        
         categoryViewController.category = category
     }
     
+    
+  
     
     
     // タスクのローカル通知を登録する --- ここから ---

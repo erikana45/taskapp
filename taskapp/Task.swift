@@ -24,7 +24,6 @@ class Task: Object {
     //カテゴリ
     @objc dynamic var category = ""
     
-    
     //カテゴリー ←課題用に追加
     @objc dynamic var categoryid = 0
     

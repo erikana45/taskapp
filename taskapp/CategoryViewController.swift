@@ -46,6 +46,7 @@ class CategoryViewController: UIViewController{
 
         try! realm.write {
             self.category.categorydata = self.categoryTextField.text!
+            category.id = categoryArray.count + 1
             self.realm.add(self.category, update: true)
         }
         

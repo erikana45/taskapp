@@ -46,10 +46,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             taskArray = try! Realm().objects(Task.self)
         } else {
         //←課題用に追加　カテゴリで絞り込みをかけたときの配列
-            taskArray = try! Realm().objects(Task.self).filter("category == %@", searchText)
+            taskArray = try! Realm().objects(Task.self).filter("category == %@ ",searchText)
        }
         tableView.reloadData()
     }
+    
     
     
     // MARK: UITableViewDataSourceプロトコルのメソッド
@@ -88,6 +89,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath)-> UITableViewCell.EditingStyle {
         return .delete
     }
+
     
     // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -95,17 +97,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if editingStyle == .delete {
             // 削除するタスクを取得する
             let task = self.taskArray[indexPath.row]
-            
             // ローカル通知をキャンセルする
             let center = UNUserNotificationCenter.current()
             center.removePendingNotificationRequests(withIdentifiers: [String(task.id)])
-            
             // データベースから削除する
             try! realm.write {
                 self.realm.delete(task)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            
             // 未通知のローカル通知一覧をログ出力
             center.getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
                 for request in requests {
@@ -117,6 +116,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } // --- ここまで変更 ---
    
     }
+    
     
     
     
@@ -136,7 +136,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if allTasks.count != 0 {
                 task.id = allTasks.max(ofProperty: "id")! + 1
             }
-            
             inputViewController.task = task
         }
     }
