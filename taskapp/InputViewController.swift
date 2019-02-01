@@ -25,8 +25,9 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     
     let realm = try! Realm()
     var task: Task!
-    var category: Category!
+    var category = Category()
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
+    
     
     
     // UIPickerViewの列の数
@@ -38,7 +39,11 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         return categoryArray.count
     }
     
- 
+    //UIPickerViewの内容
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryArray[row].categorydata
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,13 +52,17 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
         
+        //インスタンス
         titleTextField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date
         
+        
         //categoryPickerのデリゲート
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
+        categoryPicker.showsSelectionIndicator = true
+        
         //PickerViewの初期値
         categoryPicker.selectRow(2, inComponent: 0, animated: true)
         
@@ -68,19 +77,42 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
 
   
     
-    // 追加する
+    // 画面遷移するときにレルムに保存する
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
             self.task.title = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
+            if categoryArray.count != 0 {
+                let row = categoryPicker.selectedRow(inComponent: 0)
+                self.task.categoryid = categoryArray[row].id
+            }
             self.realm.add(self.task, update: true)
         }
-    
     
         setNotification(task: task)   // 追加
         super.viewWillDisappear(animated)
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        categoryPicker.selectRow(task.categoryid, inComponent: 0, animated: false)
+    }
+    
+    
+    //segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let categoryViewController:CategoryViewController = segue.destination as! CategoryViewController
+        //カテゴリのIDを設定
+        if categoryArray.count != 0 {
+            category.id = categoryArray.count + 1
+        }
+        
+        categoryViewController.category = category
+    }
+    
     
     
     // タスクのローカル通知を登録する --- ここから ---

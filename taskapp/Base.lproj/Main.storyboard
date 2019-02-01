@@ -46,8 +46,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ucu-YZ-vZU">
-                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="カテゴリ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ucu-YZ-vZU">
+                                                    <rect key="frame" x="15" y="25.5" width="49.5" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -136,7 +136,7 @@
                                 <rect key="frame" x="10" y="336" width="355" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Zfc-9G-pqP"/>
+                                    <constraint firstAttribute="height" constant="120" id="Zfc-9G-pqP" userLabel="height = 100"/>
                                 </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -217,13 +217,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新規カテゴリ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rcs-Mv-UrB">
-                                <rect key="frame" x="10" y="79" width="375" height="21"/>
+                                <rect key="frame" x="10" y="79" width="355" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZy-FQ-bMw">
-                                <rect key="frame" x="10" y="110" width="355" height="30"/>
+                                <rect key="frame" x="10" y="115" width="355" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -231,17 +231,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4Uu-oF-fi5" firstAttribute="trailing" secondItem="mZy-FQ-bMw" secondAttribute="trailing" constant="10" id="MIY-Ew-4ii"/>
-                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="top" secondItem="4Uu-oF-fi5" secondAttribute="top" constant="15" id="WwG-Ac-nnV"/>
-                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="top" secondItem="Rcs-Mv-UrB" secondAttribute="bottom" constant="10" id="h8V-gb-tk2"/>
-                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="kLN-rJ-Zve"/>
-                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="trailing" secondItem="4Uu-oF-fi5" secondAttribute="trailing" constant="10" id="khf-AD-har"/>
-                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="o88-8g-7HM"/>
+                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="Sib-Lp-KRO"/>
+                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="top" secondItem="4Uu-oF-fi5" secondAttribute="top" constant="15" id="SwU-4Y-xwk"/>
+                            <constraint firstItem="mZy-FQ-bMw" firstAttribute="top" secondItem="Rcs-Mv-UrB" secondAttribute="bottom" constant="15" id="cxA-Zy-y5p"/>
+                            <constraint firstItem="Rcs-Mv-UrB" firstAttribute="leading" secondItem="4Uu-oF-fi5" secondAttribute="leading" constant="10" id="o2u-dC-KSW"/>
+                            <constraint firstItem="4Uu-oF-fi5" firstAttribute="trailing" secondItem="mZy-FQ-bMw" secondAttribute="trailing" constant="10" id="pPz-3q-ZAh"/>
+                            <constraint firstItem="4Uu-oF-fi5" firstAttribute="trailing" secondItem="Rcs-Mv-UrB" secondAttribute="trailing" constant="10" id="rkJ-RL-LmX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Uu-oF-fi5"/>
                     </view>
                     <connections>
-                        <outlet property="categoryTextField" destination="mZy-FQ-bMw" id="IYj-zO-Btx"/>
+                        <outlet property="categoryTextField" destination="mZy-FQ-bMw" id="vlD-ih-OAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9sP-Wu-edW" userLabel="First Responder" sceneMemberID="firstResponder"/>

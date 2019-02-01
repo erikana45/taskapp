@@ -11,7 +11,7 @@ import RealmSwift
 
 class Category: Object {
     //管理用ID
-    @objc dynamic var categoryid = 0
+    @objc dynamic var id = 0
     
     //カテゴリー
     @objc dynamic var categorydata = ""
@@ -20,7 +20,7 @@ class Category: Object {
      id をプライマリーキーとして設定
      */
     override static func primaryKey() -> String? {
-        return "categoryid"
+        return "id"
     }
     
 }

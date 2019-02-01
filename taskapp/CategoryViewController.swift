@@ -9,14 +9,19 @@
 
 import UIKit
 import RealmSwift  //追加
-import UserNotifications    // 追加
+
+
 
 class CategoryViewController: UIViewController{
 
-    
     @IBOutlet weak var categoryTextField: UITextField!
-    var category:Category!
+    
+    
+    
+    var category: Category!
     let realm = try! Realm()
+    var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
+    
     
     
     override func viewDidLoad() {
@@ -25,10 +30,8 @@ class CategoryViewController: UIViewController{
         // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
-        
-        //インスタンス
-        categoryTextField.text = category.categorydata
-      
+    
+  
     }
     
     
@@ -39,13 +42,20 @@ class CategoryViewController: UIViewController{
     
     //タスク画面に戻るときに、レルムにデータを保存
     override func viewWillDisappear(_ animated: Bool) {
+       if self.categoryTextField.text != ""{
+
         try! realm.write {
             self.category.categorydata = self.categoryTextField.text!
             self.realm.add(self.category, update: true)
         }
         
+        print("-----")
+        print(category.categorydata)
+        }
+        
         super.viewWillDisappear(animated)
     }
+    
     
     
     
