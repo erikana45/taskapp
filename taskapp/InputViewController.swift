@@ -19,14 +19,15 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet weak var categoryTextField: UITextField!
     
-
     
     
     let realm = try! Realm()
     var task: Task!
     var category = Category()
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
+    
     
     
     
@@ -38,11 +39,15 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categoryArray.count
     }
-    
-    //UIPickerViewの内容
+    //UIPickerViewで最初に表示する内容
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryArray[row].categorydata
     }
+    //選択された後、TextViewに内容を返す
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryTextField.text = categoryArray[row].categorydata
+    }
+    
     
     
     override func viewDidLoad() {
@@ -53,16 +58,16 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         self.view.addGestureRecognizer(tapGesture)
         
         //インスタンス
-        titleTextField.text = task.title
+        titleTextField.text   = task.title
         contentsTextView.text = task.contents
-        datePicker.date = task.date
-        
+        datePicker.date       = task.date
+        categoryTextField.inputView = categoryPicker
         
         //categoryPickerのデリゲート
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
         categoryPicker.showsSelectionIndicator = true
-        
+    
         //PickerViewの初期値
         categoryPicker.selectRow(2, inComponent: 0, animated: true)
         
@@ -75,6 +80,8 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         view.endEditing(true)
     }
 
+    
+    
   
     
     // 画面遷移するときにレルムに保存する
@@ -84,36 +91,40 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
             if categoryArray.count != 0 {
-                let row = categoryPicker.selectedRow(inComponent: 0)
-                self.task.category = categoryArray[row].categorydata
+                self.task.category.id = categoryPicker.selectedRow(inComponent: 0)
             }
-            self.realm.add(self.task, update: true)
-        }
+          self.realm.add(self.task, update: true)
+          }
         setNotification(task: task)
         super.viewWillDisappear(animated)
     }
     
     
+    //画面遷移してきた時の表示
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        categoryPicker.selectRow(task.categoryid, inComponent: 0, animated: false)
-        // ピッカーリロード
+        
+        titleTextField.text    = task.title
+        categoryTextField.text = task.category.categorydata
+        contentsTextView.text  = task.contents
+        datePicker.date        = task.date
+        
         categoryPicker.reloadAllComponents()
+        
     }
     
     
-    //segue
+    //CategoryViewControllerへのsegue準備
+    //カテゴリに何か登録されている時は、categoryクラスのidのにプラス１をして渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let categoryViewController:CategoryViewController = segue.destination as! CategoryViewController
         //カテゴリのIDを設定
         if categoryArray.count != 0 {
             category.id = categoryArray.count + 1
         }
-        categoryViewController.category = category
+        categoryViewController.category.id = category.id
     }
-    
-    
-  
+
     
     
     // タスクのローカル通知を登録する --- ここから ---

@@ -17,10 +17,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet weak var taskAddBarButton: UIBarButtonItem!
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
-     var taskItems: Results<Task>?
+    var taskItems: Results<Task>?
     
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
@@ -32,10 +32,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tableView.delegate = self
+        tableView.delegate   = self
         tableView.dataSource = self
         taskItems = realm.objects(Task.self)
-        
     }
     
     
