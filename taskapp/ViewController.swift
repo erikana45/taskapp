@@ -13,11 +13,54 @@ import UserNotifications    // 追加
 
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UISearchBarDelegate{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
+    
+   var category = Category()
+   var categoryArray = try! Realm().objects(Category.self)
+    
+    
+    @IBOutlet weak var textField: UITextField!
+    
+    var pickerView: UIPickerView = UIPickerView()
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryArray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryArray[row].categorydata
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.textField.text = categoryArray[row].categorydata
+    }
+    
+    func cancel() {
+        self.textField.text = ""
+        self.textField.endEditing(true)
+    }
+    
+    func done() {
+        self.textField.endEditing(true)
+    }
+    
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var taskAddBarButton: UIBarButtonItem!
+  
+    
+    
     
     let realm = try! Realm()  // ←追加　Realmインスタンスを取得する
     var taskItems: Results<Task>?
@@ -49,8 +92,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        }
         tableView.reloadData()
     }
-    
-    
     
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド

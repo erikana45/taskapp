@@ -68,9 +68,6 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         categoryPicker.dataSource = self
         categoryPicker.showsSelectionIndicator = true
     
-        //PickerViewの初期値
-        categoryPicker.selectRow(0, inComponent: 0, animated: true)
-        
     }
     
     
@@ -87,9 +84,9 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     // 画面遷移するときにレルムに保存する
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
-            self.task.title = self.titleTextField.text!
+            self.task.title    = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
-            self.task.date = self.datePicker.date
+            self.task.date     = self.datePicker.date
             if categoryArray.count != 0 {
                 self.task.category.categorydata = categoryTextField.text!
             }
@@ -99,7 +96,7 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         super.viewWillDisappear(animated)
     }
     
-    
+   
     //画面遷移してきた時の表示
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -108,6 +105,7 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         categoryTextField.text = task.category.categorydata
         contentsTextView.text  = task.contents
         datePicker.date        = task.date
+        categoryPicker.selectedRow(inComponent: 0)
         
         categoryPicker.reloadAllComponents()
         
