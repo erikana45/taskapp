@@ -69,7 +69,7 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         categoryPicker.showsSelectionIndicator = true
     
         //PickerViewの初期値
-        categoryPicker.selectRow(2, inComponent: 0, animated: true)
+        categoryPicker.selectRow(0, inComponent: 0, animated: true)
         
     }
     
@@ -91,7 +91,7 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
             self.task.contents = self.contentsTextView.text
             self.task.date = self.datePicker.date
             if categoryArray.count != 0 {
-                self.task.category.id = categoryPicker.selectedRow(inComponent: 0)
+                self.task.category.categorydata = categoryTextField.text!
             }
           self.realm.add(self.task, update: true)
           }
@@ -117,12 +117,10 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     //CategoryViewControllerへのsegue準備
     //カテゴリに何か登録されている時は、categoryクラスのidのにプラス１をして渡す
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let categoryViewController:CategoryViewController = segue.destination as! CategoryViewController
-        //カテゴリのIDを設定
-        if categoryArray.count != 0 {
+        let _:CategoryViewController = segue.destination as! CategoryViewController
+        
             category.id = categoryArray.count + 1
-        }
-        categoryViewController.category.id = category.id
+       
     }
 
     

@@ -18,7 +18,7 @@ class CategoryViewController: UIViewController{
     
     
     
-    var category: Category!
+    var category:Category! = Category()
     let realm = try! Realm()
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
     

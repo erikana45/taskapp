@@ -130,6 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else {
             let task = Task()
             task.date = Date()
+            task.category = Category() //課題用に追加
             
             let allTasks = realm.objects(Task.self)
             if allTasks.count != 0 {
