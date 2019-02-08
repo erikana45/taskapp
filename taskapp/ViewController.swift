@@ -17,9 +17,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
    var category = Category()
    var categoryArray = try! Realm().objects(Category.self)
-    
+   var toolbar = UIToolbar()
     
     @IBOutlet weak var textField: UITextField!
+    
+    
     
     var pickerView: UIPickerView = UIPickerView()
     
@@ -39,12 +41,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.textField.text = categoryArray[row].categorydata
     }
     
-    func cancel() {
+    @objc func cancel() {
         self.textField.text = ""
         self.textField.endEditing(true)
     }
     
-    func done() {
+    @objc func done() {
         self.textField.endEditing(true)
     }
     
@@ -78,6 +80,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate   = self
         tableView.dataSource = self
         taskItems = realm.objects(Task.self)
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.showsSelectionIndicator = true
+        
+        self.toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 35))
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ViewController.done))
+        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ViewController.cancel))
+        self.toolbar.setItems([cancelItem, doneItem], animated: true)
+        
+        self.textField.inputView = pickerView
+        self.textField.inputAccessoryView = self.toolbar
+        
     }
     
     
