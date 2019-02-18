@@ -92,7 +92,8 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
             self.realm.add(self.task, update: true)
         }
         setNotification(task: task)
-        performSegue(withIdentifier: "doneBack", sender: nil)
+        //performSegue(withIdentifier: "doneBack", sender: nil)
+        navigationController?.popViewController(animated: true)
     }
  
     
