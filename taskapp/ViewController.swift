@@ -18,12 +18,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
    var category = Category()
    var categoryArray = try! Realm().objects(Category.self)
    var toolbar = UIToolbar()
+   
+
     
     @IBOutlet weak var textField: UITextField!
-    
-    
-    
     var pickerView: UIPickerView = UIPickerView()
+    
+    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -39,7 +40,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.textField.text = categoryArray[row].categorydata
+        
+        
     }
+    
+    
     
     @objc func cancel() {
         self.textField.text = ""
@@ -48,8 +53,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func done() {
         self.textField.endEditing(true)
+        
+        if textField.text == "" {
+            taskArray = try! Realm().objects(Task.self)
+        } else {
+            //←課題用に追加　カテゴリで絞り込みをかけたときの配列
+            taskArray = try! Realm().objects(Task.self).filter("categoryrow == %d",pickerView.selectedRow(inComponent: 0))
+            print(taskArray)
+        }
+        tableView.reloadData()
     }
-    
     
     
     override func didReceiveMemoryWarning() {
@@ -74,13 +87,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
    
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate   = self
         tableView.dataSource = self
         taskItems = realm.objects(Task.self)
-        
+    
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
@@ -91,23 +105,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.toolbar.setItems([cancelItem, doneItem], animated: true)
         
         self.textField.inputView = pickerView
-        self.textField.inputAccessoryView = self.toolbar
+        self.textField.inputAccessoryView = toolbar
+    
         
     }
     
-    
-    
-    //課題用に追加　サーチバー更新ごとに検索される
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            taskArray = try! Realm().objects(Task.self)
-        } else {
-        //←課題用に追加　カテゴリで絞り込みをかけたときの配列
-            taskArray = try! Realm().objects(Task.self).filter("category == %@ ",searchText)
-       }
-        tableView.reloadData()
-    }
-    
+   
+        
+        
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

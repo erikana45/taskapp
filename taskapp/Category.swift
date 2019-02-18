@@ -14,7 +14,7 @@ class Category: Object {
     @objc dynamic var id = 0
     
     //カテゴリー
-    @objc dynamic var categorydata = ""
+    @objc dynamic var categorydata:String = ""
     
     /**
      id をプライマリーキーとして設定

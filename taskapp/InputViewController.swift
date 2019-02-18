@@ -20,16 +20,15 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var barButtonItem: UIBarButtonItem!
     @IBOutlet weak var categoryTextField: UITextField!
+   
     
-    
+
     
     let realm = try! Realm()
-    var task: Task!
-    var category = Category()
+    var task: Task! = Task()
+    var category:Category! = Category()
     var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
-    
-    
-    
+   
     
     // UIPickerViewの列の数
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -39,14 +38,20 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categoryArray.count
     }
-    //UIPickerViewで最初に表示する内容
+    //表示する値を指定
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return categoryArray[row].categorydata
     }
-    //選択された後、TextViewに内容を返す
+    //選択された項目
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //選ばれた項目
         categoryTextField.text = categoryArray[row].categorydata
+        //現在選択されている行番号
+        _ = pickerView.selectedRow(inComponent: 0)
+        
     }
+    
+    
     
     
     
@@ -61,12 +66,10 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
         titleTextField.text   = task.title
         contentsTextView.text = task.contents
         datePicker.date       = task.date
-        categoryTextField.inputView = categoryPicker
         
         //categoryPickerのデリゲート
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
-        categoryPicker.showsSelectionIndicator = true
     
     }
     
@@ -79,48 +82,48 @@ class InputViewController: UIViewController,UIPickerViewDataSource,UIPickerViewD
 
     
     
-  
-    
-    // 画面遷移するときにレルムに保存する
-    override func viewWillDisappear(_ animated: Bool) {
+     //保存ボタンを押した時にタスクが保存される
+    @IBAction func addTask(_ sender: Any) {
         try! realm.write {
             self.task.title    = self.titleTextField.text!
             self.task.contents = self.contentsTextView.text
             self.task.date     = self.datePicker.date
-            if categoryArray.count != 0 {
-                self.task.category.categorydata = categoryTextField.text!
-            }
-          self.realm.add(self.task, update: true)
-          }
+            self.task.categoryrow = self.categoryPicker.selectedRow(inComponent: 0)
+            self.realm.add(self.task, update: true)
+        }
         setNotification(task: task)
-        super.viewWillDisappear(animated)
+        performSegue(withIdentifier: "doneBack", sender: nil)
     }
+ 
     
-   
     //画面遷移してきた時の表示
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         titleTextField.text    = task.title
-        categoryTextField.text = task.category.categorydata
         contentsTextView.text  = task.contents
+        categoryPicker.selectRow(task.categoryrow, inComponent: 0, animated: true)
         datePicker.date        = task.date
-        categoryPicker.selectedRow(inComponent: 0)
         
         categoryPicker.reloadAllComponents()
         
     }
     
     
-    //CategoryViewControllerへのsegue準備
-    //カテゴリに何か登録されている時は、categoryクラスのidのにプラス１をして渡す
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let _:CategoryViewController = segue.destination as! CategoryViewController
+  
+    @IBAction func addCategory(_ sender: Any) {
+        try! realm.write {
+            self.task.title = self.titleTextField.text!
+            self.task.contents = self.contentsTextView.text
+            self.task.date = self.datePicker.date
+            self.realm.add(self.task,update: true)
+        }
+        let storyboard:UIStoryboard = self.storyboard!
+        let addCategory = storyboard.instantiateViewController(withIdentifier: "addCategory")
+        present(addCategory,animated: true,completion:nil)
         
-            category.id = categoryArray.count + 1
-       
     }
-
+    
     
     
     // タスクのローカル通知を登録する --- ここから ---

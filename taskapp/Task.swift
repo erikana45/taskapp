@@ -24,7 +24,9 @@ class Task: Object {
     //カテゴリ
     @objc dynamic var category:Category! = Category()
     
-   
+   //カテゴリ番号
+    @objc dynamic var categoryrow = 0
+    
     /**
      id をプライマリーキーとして設定
      */

@@ -20,7 +20,9 @@ class CategoryViewController: UIViewController{
     
     var category:Category! = Category()
     let realm = try! Realm()
-    var categoryArray = try!  Realm().objects(Category.self) //カテゴリの配列を取得
+    var taskArray = try! Realm().objects(Task.self)
+    var categoryArray = try! Realm().objects(Category.self) //カテゴリの配列を取得
+    var id: Int = 0
     
     
     
@@ -40,21 +42,28 @@ class CategoryViewController: UIViewController{
         view.endEditing(true)
     }
     
+    
+    
     //タスク画面に戻るときに、レルムにデータを保存
     override func viewWillDisappear(_ animated: Bool) {
-       if self.categoryTextField.text != ""{
-
+        if self.categoryTextField!.text == "" {
+            dismiss(animated: true, completion: nil)
+            return
+            }
+        let category = Category()
+        let allCategories = try! Realm().objects(Category.self)
+        if allCategories.count != 0 {
+            category.id = allCategories.max(ofProperty: "id")! + 1
+        }else{
+            category.id = 1
+        }
         try! realm.write {
-            self.category.categorydata = self.categoryTextField.text!
-            category.id = categoryArray.count + 1
-            self.realm.add(self.category, update: true)
+            category.categorydata = self.categoryTextField.text!
+            self.realm.add(category, update: true)
         }
-        
-        print("-----")
-        print(category.categorydata)
-        }
-        
-        super.viewWillDisappear(animated)
+        //performSegue(withIdentifier: "backInputviewController", sender: nil)
+        dismiss(animated: true, completion: nil)
+    
     }
     
     
